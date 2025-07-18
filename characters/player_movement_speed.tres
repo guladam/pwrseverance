@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MoveStats" load_steps=2 format=3 uid="uid://cld1js5ka5jur"]
+
+[ext_resource type="Script" uid="uid://go030vrl5y4s" path="res://resources/move_stats.gd" id="1_e5laq"]
+
+[resource]
+script = ExtResource("1_e5laq")
+speed = 600
+rotation_speed = 5.0
+metadata/_custom_type_script = "uid://go030vrl5y4s"

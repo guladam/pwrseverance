@@ -1,0 +1,199 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwfqjs15xpcmx"]
+
+[ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_tory2"]
+[ext_resource type="Script" uid="uid://c1jib4fqcicgv" path="res://characters/player.gd" id="1_x0jl3"]
+[ext_resource type="Resource" uid="uid://cld1js5ka5jur" path="res://characters/player_movement_speed.tres" id="2_tory2"]
+[ext_resource type="Script" uid="uid://b5rpv2sfrwjo1" path="res://components/jump_component.gd" id="4_x0jl3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tory2"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_x0jl3"]
+resource_name = "jump"
+length = 0.35
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, -0.5, -0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_evndh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftHandAnchor/LeftHandWeapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftHandAnchor/LeftHandWeapon:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.35619]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftHandAnchor:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, -64)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RightHandAnchor:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_h1q25"]
+resource_name = "sword_slash"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftHandAnchor/LeftHandWeapon:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 2),
+"update": 0,
+"values": [Vector2(35, -10), Vector2(70, -10), Vector2(50, -10), Vector2(10, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftHandAnchor/LeftHandWeapon:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2),
+"update": 0,
+"values": [1.5708, 1.5708, 2.35619]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftHandAnchor:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 2),
+"update": 0,
+"values": [Vector2(64, -48), Vector2(64, -48), Vector2(32, -64)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RightHandAnchor:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 2),
+"update": 0,
+"values": [Vector2(16, 48), Vector2(16, 48), Vector2(32, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h1q25"]
+_data = {
+&"RESET": SubResource("Animation_evndh"),
+&"jump": SubResource("Animation_x0jl3"),
+&"sword_slash": SubResource("Animation_h1q25")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_x0jl3")
+move_stats = ExtResource("2_tory2")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_tory2")
+region_enabled = true
+region_rect = Rect2(256, 1024, 128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tory2")
+
+[node name="LeftHandAnchor" type="Marker2D" parent="."]
+position = Vector2(32, -64)
+
+[node name="LeftHandWeapon" type="Node2D" parent="LeftHandAnchor"]
+position = Vector2(10, 0)
+rotation = 2.35619
+
+[node name="SwordSprite" type="Sprite2D" parent="LeftHandAnchor/LeftHandWeapon"]
+position = Vector2(12, 0)
+texture = ExtResource("1_tory2")
+centered = false
+offset = Vector2(-64, -110)
+region_enabled = true
+region_rect = Rect2(256, 1152, 128, 128)
+
+[node name="HandSprite" type="Sprite2D" parent="LeftHandAnchor"]
+texture = ExtResource("1_tory2")
+region_enabled = true
+region_rect = Rect2(384, 1024, 128, 128)
+
+[node name="RightHandAnchor" type="Marker2D" parent="."]
+position = Vector2(32, 64)
+
+[node name="HandSprite" type="Sprite2D" parent="RightHandAnchor"]
+texture = ExtResource("1_tory2")
+region_enabled = true
+region_rect = Rect2(384, 1024, 128, 128)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h1q25")
+}
+
+[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("anim_player")]
+script = ExtResource("4_x0jl3")
+anim_player = NodePath("../AnimationPlayer")
+metadata/_custom_type_script = "uid://b5rpv2sfrwjo1"
