@@ -46,8 +46,12 @@ func second_room_last_dialogue() -> void:
 func _on_second_room_dummy_hurt(_hitbox: HitboxComponent) -> void:
 	dummy1_hit_counter += 1
 	if dummy1_hit_counter == 5:
-		second_room_last_dialogue()
-		dummy1.hurtbox_component.hurt.disconnect(_on_second_room_dummy_hurt)
+		get_tree().create_timer(0.4).timeout.connect(
+			func():
+				second_room_last_dialogue()
+				dummy1.hurtbox_component.hurt.disconnect(_on_second_room_dummy_hurt)
+		, CONNECT_ONE_SHOT
+		)
 
 
 func _on_second_room_line_started(idx: int) -> void:
