@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmaal1vnw3dbq"]
+
+[ext_resource type="FontFile" uid="uid://b6n3m45uvl0kl" path="res://assets/zerove.ttf" id="1_ptfol"]
+[ext_resource type="Script" uid="uid://b72emtyfem52l" path="res://global/floating_combat_text.gd" id="2_3bi0d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3bi0d"]
+font = ExtResource("1_ptfol")
+font_size = 36
+font_color = Color(0.813338, 0.741539, 0.956703, 1)
+outline_size = 10
+outline_color = Color(0.345098, 0.192157, 0.54902, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.529412)
+shadow_offset = Vector2(3, 3)
+
+[node name="FloatingCombatText" type="Label"]
+offset_right = 30.0
+offset_bottom = 42.0
+text = "51"
+label_settings = SubResource("LabelSettings_3bi0d")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_3bi0d")

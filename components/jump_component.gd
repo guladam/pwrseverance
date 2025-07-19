@@ -6,6 +6,7 @@ signal jump_finished
 
 @export var anim_player: AnimationPlayer
 @export_range(0.0, 1.0, 0.01) var coyote_threshold := 0.8
+@export var sfx: AudioStreamPlayer
 
 var queued_jumps := 0
 
@@ -34,4 +35,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _jump() -> void:
 	anim_player.play("jump")
+	if sfx:
+		sfx.play()
 	jumped.emit()

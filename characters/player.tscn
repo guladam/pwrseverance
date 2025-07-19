@@ -1,29 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwfqjs15xpcmx"]
+[gd_scene load_steps=19 format=3 uid="uid://cwfqjs15xpcmx"]
 
 [ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_tory2"]
 [ext_resource type="Script" uid="uid://c1jib4fqcicgv" path="res://characters/player.gd" id="1_x0jl3"]
 [ext_resource type="Resource" uid="uid://cld1js5ka5jur" path="res://characters/player_movement_speed.tres" id="2_tory2"]
 [ext_resource type="Script" uid="uid://b5rpv2sfrwjo1" path="res://components/jump_component.gd" id="4_x0jl3"]
+[ext_resource type="Script" uid="uid://cj0iqlwe3ob0s" path="res://components/rotate_towards_mouse_component.gd" id="5_h1q25"]
+[ext_resource type="Resource" uid="uid://1pkw8g50y8v1" path="res://game_settings.tres" id="6_j31ep"]
+[ext_resource type="AudioStream" uid="uid://cdclflkw6hg4q" path="res://assets/sfx/ugras.ogg" id="7_q605b"]
+[ext_resource type="AudioStream" uid="uid://duymdl44r6aw1" path="res://assets/sfx/seta1.wav" id="8_eho78"]
+[ext_resource type="AudioStream" uid="uid://buuvao1xb18l" path="res://assets/sfx/seta2.wav" id="9_8sqrr"]
+[ext_resource type="AudioStream" uid="uid://hm7aq7hp63po" path="res://assets/sfx/suhintas.wav" id="10_6rrl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tory2"]
 size = Vector2(64, 64)
-
-[sub_resource type="Animation" id="Animation_x0jl3"]
-resource_name = "jump"
-length = 0.35
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.25, 0.35),
-"transitions": PackedFloat32Array(1, -0.5, -0.5, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_evndh"]
 length = 0.001
@@ -88,6 +77,23 @@ tracks/4/keys = {
 "values": [Vector2(32, 64)]
 }
 
+[sub_resource type="Animation" id="Animation_x0jl3"]
+resource_name = "jump"
+length = 0.35
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, -0.5, -0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_h1q25"]
 resource_name = "sword_slash"
 length = 0.5
@@ -148,6 +154,26 @@ _data = {
 &"sword_slash": SubResource("Animation_h1q25")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eus45"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("7_q605b")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vcag3"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 2
+stream_0/stream = ExtResource("8_eho78")
+stream_1/stream = ExtResource("9_8sqrr")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h076o"]
+playback_mode = 1
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("10_6rrl0")
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_x0jl3")
 move_stats = ExtResource("2_tory2")
@@ -193,7 +219,31 @@ libraries = {
 &"": SubResource("AnimationLibrary_h1q25")
 }
 
-[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("anim_player")]
+[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("anim_player", "sfx")]
 script = ExtResource("4_x0jl3")
 anim_player = NodePath("../AnimationPlayer")
+sfx = NodePath("../JumpSound")
 metadata/_custom_type_script = "uid://b5rpv2sfrwjo1"
+
+[node name="RotateTowardsMouseComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("5_h1q25")
+target = NodePath("..")
+game_settings = ExtResource("6_j31ep")
+metadata/_custom_type_script = "uid://cj0iqlwe3ob0s"
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_eus45")
+bus = &"SFX"
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_vcag3")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="MoveSoundTimer" type="Timer" parent="MoveSound"]
+wait_time = 0.3
+autostart = true
+
+[node name="SwordSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_h076o")
+bus = &"SFX"
