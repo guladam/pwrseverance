@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cpttbpk01v5db"
-path="res://.godot/imported/drybrush.ttf-2d06c63dbea4f69fde1d04b321239b0e.fontdata"
+path="res://.godot/imported/drybrush.ttf-d245c5b62c8137907d5d0abb7e6d49c7.fontdata"
 
 [deps]
 
-source_file="res://assets/drybrush.ttf"
-dest_files=["res://.godot/imported/drybrush.ttf-2d06c63dbea4f69fde1d04b321239b0e.fontdata"]
+source_file="res://assets/font/drybrush.ttf"
+dest_files=["res://.godot/imported/drybrush.ttf-d245c5b62c8137907d5d0abb7e6d49c7.fontdata"]
 
 [params]
 

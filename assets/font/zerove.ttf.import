@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b6n3m45uvl0kl"
-path="res://.godot/imported/zerove.ttf-ec53200d21aefef70482eea82f480a6b.fontdata"
+path="res://.godot/imported/zerove.ttf-61ab55aa0ca9041d70b6b49a47176b0b.fontdata"
 
 [deps]
 
-source_file="res://assets/zerove.ttf"
-dest_files=["res://.godot/imported/zerove.ttf-ec53200d21aefef70482eea82f480a6b.fontdata"]
+source_file="res://assets/font/zerove.ttf"
+dest_files=["res://.godot/imported/zerove.ttf-61ab55aa0ca9041d70b6b49a47176b0b.fontdata"]
 
 [params]
 

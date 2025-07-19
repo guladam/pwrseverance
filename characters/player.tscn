@@ -1,18 +1,32 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwfqjs15xpcmx"]
+[gd_scene load_steps=30 format=3 uid="uid://cwfqjs15xpcmx"]
 
 [ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_tory2"]
 [ext_resource type="Script" uid="uid://c1jib4fqcicgv" path="res://characters/player.gd" id="1_x0jl3"]
 [ext_resource type="Resource" uid="uid://cld1js5ka5jur" path="res://characters/player_movement_speed.tres" id="2_tory2"]
+[ext_resource type="Script" uid="uid://lu57o4wyoxw0" path="res://components/hurtbox_component.gd" id="4_h076o"]
+[ext_resource type="Script" uid="uid://n61vat51l6md" path="res://components/hitbox_component.gd" id="4_lcfw7"]
 [ext_resource type="Script" uid="uid://b5rpv2sfrwjo1" path="res://components/jump_component.gd" id="4_x0jl3"]
 [ext_resource type="Script" uid="uid://cj0iqlwe3ob0s" path="res://components/rotate_towards_mouse_component.gd" id="5_h1q25"]
 [ext_resource type="Resource" uid="uid://1pkw8g50y8v1" path="res://game_settings.tres" id="6_j31ep"]
 [ext_resource type="AudioStream" uid="uid://cdclflkw6hg4q" path="res://assets/sfx/ugras.ogg" id="7_q605b"]
+[ext_resource type="Script" uid="uid://dtft7np25t364" path="res://components/hurt_component.gd" id="7_vcag3"]
 [ext_resource type="AudioStream" uid="uid://duymdl44r6aw1" path="res://assets/sfx/seta1.wav" id="8_eho78"]
+[ext_resource type="Resource" uid="uid://c1wsfa8ynia3x" path="res://characters/player_stats.tres" id="8_h076o"]
 [ext_resource type="AudioStream" uid="uid://buuvao1xb18l" path="res://assets/sfx/seta2.wav" id="9_8sqrr"]
+[ext_resource type="Script" uid="uid://cjcdrcupe57ko" path="res://components/floating_text_manager_component.gd" id="9_lcfw7"]
 [ext_resource type="AudioStream" uid="uid://hm7aq7hp63po" path="res://assets/sfx/suhintas.wav" id="10_6rrl0"]
+[ext_resource type="Script" uid="uid://ml8ppjiwhayk" path="res://components/spawner_component.gd" id="10_b0vde"]
+[ext_resource type="PackedScene" uid="uid://cmaal1vnw3dbq" path="res://global/floating_combat_text.tscn" id="11_ke0a4"]
+[ext_resource type="AudioStream" uid="uid://crc1hkfrq4ihn" path="res://assets/sfx/sword_hit_small.wav" id="17_lcfw7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tory2"]
 size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0vde"]
+size = Vector2(20, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h076o"]
+radius = 30.0
 
 [sub_resource type="Animation" id="Animation_evndh"]
 length = 0.001
@@ -76,11 +90,35 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(32, 64)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LeftHandAnchor/LeftHandWeapon/LeftWeaponHitbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hurtbox:is_invincible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_x0jl3"]
 resource_name = "jump"
 length = 0.35
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -92,6 +130,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, -0.5, -0.5, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox:is_invincible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.293407),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_h1q25"]
@@ -146,6 +196,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(16, 48), Vector2(16, 48), Vector2(32, 64)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LeftHandAnchor/LeftHandWeapon/LeftWeaponHitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h1q25"]
 _data = {
@@ -169,14 +231,24 @@ stream_1/stream = ExtResource("9_8sqrr")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h076o"]
 playback_mode = 1
-random_pitch = 1.3
+random_pitch = 1.1
 random_volume_offset_db = 0.3
 streams_count = 1
 stream_0/stream = ExtResource("10_6rrl0")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b0vde"]
+playback_mode = 1
+random_pitch = 1.05
+random_volume_offset_db = 0.2
+streams_count = 1
+stream_0/stream = ExtResource("17_lcfw7")
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 9
 script = ExtResource("1_x0jl3")
+character_stats = ExtResource("8_h076o")
 move_stats = ExtResource("2_tory2")
+move_sound_threshold = 0.45
 
 [node name="BodySprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_tory2")
@@ -185,15 +257,18 @@ region_rect = Rect2(256, 1024, 128, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tory2")
+debug_color = Color(0, 0.6, 0.701961, 0.298039)
 
 [node name="LeftHandAnchor" type="Marker2D" parent="."]
 position = Vector2(32, -64)
 
 [node name="LeftHandWeapon" type="Node2D" parent="LeftHandAnchor"]
+unique_name_in_owner = true
 position = Vector2(10, 0)
 rotation = 2.35619
 
 [node name="SwordSprite" type="Sprite2D" parent="LeftHandAnchor/LeftHandWeapon"]
+z_index = 99
 position = Vector2(12, 0)
 texture = ExtResource("1_tory2")
 centered = false
@@ -201,7 +276,21 @@ offset = Vector2(-64, -110)
 region_enabled = true
 region_rect = Rect2(256, 1152, 128, 128)
 
+[node name="LeftWeaponHitbox" type="Area2D" parent="LeftHandAnchor/LeftHandWeapon"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_lcfw7")
+metadata/_custom_type_script = "uid://n61vat51l6md"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftHandAnchor/LeftHandWeapon/LeftWeaponHitbox"]
+position = Vector2(12, -60)
+shape = SubResource("RectangleShape2D_b0vde")
+disabled = true
+debug_color = Color(0.754849, 0.455399, 0.0579519, 0.42)
+
 [node name="HandSprite" type="Sprite2D" parent="LeftHandAnchor"]
+z_index = 99
 texture = ExtResource("1_tory2")
 region_enabled = true
 region_rect = Rect2(384, 1024, 128, 128)
@@ -214,36 +303,79 @@ texture = ExtResource("1_tory2")
 region_enabled = true
 region_rect = Rect2(384, 1024, 128, 128)
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_h076o")
+metadata/_custom_type_script = "uid://lu57o4wyoxw0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_h076o")
+debug_color = Color(0.955876, 0.027476, 0.526448, 0.42)
+
+[node name="FloatingTextSpawner" type="Node2D" parent="."]
+position = Vector2(80, 0)
+script = ExtResource("10_b0vde")
+scene = ExtResource("11_ke0a4")
+metadata/_custom_type_script = "uid://ml8ppjiwhayk"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_h1q25")
 }
 
-[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("anim_player", "sfx")]
+[node name="Components" type="Node" parent="."]
+
+[node name="JumpComponent" type="Node" parent="Components" node_paths=PackedStringArray("anim_player", "sfx")]
+unique_name_in_owner = true
 script = ExtResource("4_x0jl3")
-anim_player = NodePath("../AnimationPlayer")
-sfx = NodePath("../JumpSound")
+anim_player = NodePath("../../AnimationPlayer")
+sfx = NodePath("../../SFX/JumpSound")
 metadata/_custom_type_script = "uid://b5rpv2sfrwjo1"
 
-[node name="RotateTowardsMouseComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+[node name="RotateTowardsMouseComponent" type="Node" parent="Components" node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
 script = ExtResource("5_h1q25")
-target = NodePath("..")
+target = NodePath("../..")
 game_settings = ExtResource("6_j31ep")
 metadata/_custom_type_script = "uid://cj0iqlwe3ob0s"
 
-[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+[node name="HurtComponent" type="Node" parent="Components" node_paths=PackedStringArray("hurtbox_component")]
+script = ExtResource("7_vcag3")
+stats = ExtResource("8_h076o")
+hurtbox_component = NodePath("../../Hurtbox")
+metadata/_custom_type_script = "uid://dtft7np25t364"
+
+[node name="FloatingTextManagerComponent" type="Node" parent="Components" node_paths=PackedStringArray("spawner_component")]
+unique_name_in_owner = true
+script = ExtResource("9_lcfw7")
+spawner_component = NodePath("../../FloatingTextSpawner")
+metadata/_custom_type_script = "uid://cjcdrcupe57ko"
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="SFX"]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_eus45")
 bus = &"SFX"
 
-[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+[node name="MoveSound" type="AudioStreamPlayer" parent="SFX"]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_vcag3")
 volume_db = -5.0
 bus = &"SFX"
 
-[node name="MoveSoundTimer" type="Timer" parent="MoveSound"]
-wait_time = 0.3
+[node name="MoveSoundTimer" type="Timer" parent="SFX/MoveSound"]
+wait_time = 0.35
 autostart = true
 
-[node name="SwordSound" type="AudioStreamPlayer" parent="."]
+[node name="SwordSound" type="AudioStreamPlayer" parent="SFX"]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_h076o")
+bus = &"SFX"
+
+[node name="SwordHitSound" type="AudioStreamPlayer" parent="SFX"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_b0vde")
 bus = &"SFX"

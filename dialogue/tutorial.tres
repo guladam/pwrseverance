@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="DialogueLines" load_steps=8 format=3 uid="uid://0elntahwd06k"]
+
+[ext_resource type="Script" uid="uid://6w3dpa0bbfs" path="res://resources/dialogue_line.gd" id="1_w8tro"]
+[ext_resource type="Script" uid="uid://bb1s133dlk22d" path="res://resources/dialogue_lines.gd" id="2_w8tro"]
+
+[sub_resource type="Resource" id="Resource_dotij"]
+script = ExtResource("1_w8tro")
+text = "Hey there [color=medium_purple]buddy[/color]!
+How's it going today?"
+reveal_duration = 1.5
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_11ncd"]
+script = ExtResource("1_w8tro")
+text = "Welcome to your training. I'm sorry that you had to come on such a short notice...
+But y'know, a dragon rampaging our town is a [shake rate=20.0 level=7 connected=1]pretty big deal[/shake]."
+reveal_duration = 3.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_tg6o4"]
+script = ExtResource("1_w8tro")
+text = "What?! You say you never lifted a sword before?"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_pbki7"]
+script = ExtResource("1_w8tro")
+text = "..."
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_tsadq"]
+script = ExtResource("1_w8tro")
+text = "You serious bro?"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[resource]
+script = ExtResource("2_w8tro")
+lines = Array[ExtResource("1_w8tro")]([SubResource("Resource_dotij"), SubResource("Resource_11ncd"), SubResource("Resource_tg6o4"), SubResource("Resource_pbki7"), SubResource("Resource_tsadq")])
+metadata/_custom_type_script = "uid://bb1s133dlk22d"

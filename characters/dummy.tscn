@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://csa8h3lafk7s7"]
+
+[ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_dws8c"]
+[ext_resource type="Script" uid="uid://c2o2q3y2yvqjb" path="res://characters/dummy.gd" id="1_tjxtd"]
+[ext_resource type="Script" uid="uid://lu57o4wyoxw0" path="res://components/hurtbox_component.gd" id="2_mlmbs"]
+[ext_resource type="Script" uid="uid://ml8ppjiwhayk" path="res://components/spawner_component.gd" id="3_j7qek"]
+[ext_resource type="PackedScene" uid="uid://cmaal1vnw3dbq" path="res://global/floating_combat_text.tscn" id="4_tjxtd"]
+[ext_resource type="Script" uid="uid://dtft7np25t364" path="res://components/hurt_component.gd" id="5_tqx7u"]
+[ext_resource type="Resource" uid="uid://bjsbp76y1ld7h" path="res://characters/dummy_stats.tres" id="6_j7qek"]
+[ext_resource type="Script" uid="uid://cjcdrcupe57ko" path="res://components/floating_text_manager_component.gd" id="6_w3lve"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c747j"]
+size = Vector2(96, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsvvv"]
+size = Vector2(105, 105)
+
+[node name="Dummy" type="StaticBody2D"]
+script = ExtResource("1_tjxtd")
+stats = ExtResource("6_j7qek")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_dws8c")
+region_enabled = true
+region_rect = Rect2(1536, 256, 128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c747j")
+debug_color = Color(0, 0.6, 0.701961, 0.27451)
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_mlmbs")
+metadata/_custom_type_script = "uid://lu57o4wyoxw0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_jsvvv")
+debug_color = Color(0.959492, 2.40654e-06, 0.521323, 0.42)
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+position = Vector2(0, -53)
+script = ExtResource("3_j7qek")
+scene = ExtResource("4_tjxtd")
+metadata/_custom_type_script = "uid://ml8ppjiwhayk"
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox_component")]
+script = ExtResource("5_tqx7u")
+stats = ExtResource("6_j7qek")
+hurtbox_component = NodePath("../HurtboxComponent")
+metadata/_custom_type_script = "uid://dtft7np25t364"
+
+[node name="FloatingTextManagerComponent" type="Node" parent="." node_paths=PackedStringArray("spawner_component")]
+script = ExtResource("6_w3lve")
+spawner_component = NodePath("../SpawnerComponent")
+travel = Vector2(0, -200)
+duration = 1.0
+spread = 1.7
+metadata/_custom_type_script = "uid://cjcdrcupe57ko"
