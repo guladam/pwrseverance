@@ -10,12 +10,5 @@ func _ready() -> void:
 		func(_body: CharacterBody2D):
 			triggered.emit()
 			if trigger_once:
-				_disable_collision_shapes()
+				queue_free()
 	)
-
-
-func _disable_collision_shapes() -> void:
-	for child in get_children():
-		if not child is CollisionShape2D and not child is CollisionPolygon2D:
-			continue
-		child.set_deferred("disabled", true)

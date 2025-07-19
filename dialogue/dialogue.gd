@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 signal dialogue_started
+signal line_started(line_idx: int)
+signal line_finished(line_idx: int)
 signal dialogue_finished
 
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
@@ -32,6 +34,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func show_dialogue(dialogue: Array[DialogueLine]) -> void:
 	get_tree().paused = true
 	dialogue_started.emit()
+	current_index = 0
 	in_dialogue = true
 	last_line = false
 	current_dialogue = dialogue.duplicate()
@@ -44,9 +47,11 @@ func _play_line() -> void:
 	rich_text_label.text = current_dialogue[current_index].text
 	var tween := rich_text_label.create_tween()
 	tween.tween_property(rich_text_label, "visible_ratio", 1.0, current_dialogue[current_index].reveal_duration).from(0.0)
+	line_started.emit(current_index)
 	
 	tween.finished.connect(
 		func():
+			line_finished.emit(current_index)
 			current_index += 1
 			icon.show()
 			if current_index == current_dialogue.size():

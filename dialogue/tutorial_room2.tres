@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="DialogueLines" load_steps=8 format=3 uid="uid://bo3a5bcemeyp4"]
+
+[ext_resource type="Script" uid="uid://6w3dpa0bbfs" path="res://resources/dialogue_line.gd" id="1_pam8p"]
+[ext_resource type="Script" uid="uid://bb1s133dlk22d" path="res://resources/dialogue_lines.gd" id="2_xwmju"]
+
+[sub_resource type="Resource" id="Resource_pam8p"]
+script = ExtResource("1_pam8p")
+text = "See, it ain't that hard... you made it. :)
+Here's a sword as a reward!"
+reveal_duration = 2.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_xwmju"]
+script = ExtResource("1_pam8p")
+text = "Now let's [wave amp=50.0 freq=5.0 connected=1]swing[/wave] that bad boy, shall we?"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_qtynd"]
+script = ExtResource("1_pam8p")
+text = "See that barrel over there?"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_ofblx"]
+script = ExtResource("1_pam8p")
+text = "I know it doesn't look *that* intimidating...
+gotta start somewhere, amirite?"
+reveal_duration = 1.4
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_ql8k5"]
+script = ExtResource("1_pam8p")
+text = "Use your mouse to aim and perform attacks with LMB!"
+reveal_duration = 2.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[resource]
+script = ExtResource("2_xwmju")
+lines = Array[ExtResource("1_pam8p")]([SubResource("Resource_pam8p"), SubResource("Resource_xwmju"), SubResource("Resource_qtynd"), SubResource("Resource_ofblx"), SubResource("Resource_ql8k5")])
+metadata/_custom_type_script = "uid://bb1s133dlk22d"

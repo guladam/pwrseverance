@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="DialogueLines" load_steps=5 format=3 uid="uid://dyxiyxe8o8cyp"]
+
+[ext_resource type="Script" uid="uid://6w3dpa0bbfs" path="res://resources/dialogue_line.gd" id="1_6nkp7"]
+[ext_resource type="Script" uid="uid://bb1s133dlk22d" path="res://resources/dialogue_lines.gd" id="2_sh56k"]
+
+[sub_resource type="Resource" id="Resource_6nkp7"]
+script = ExtResource("1_6nkp7")
+text = "Stubborn barrel, ain't it soldier?"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_sh56k"]
+script = ExtResource("1_6nkp7")
+text = "Just go to the next room, the dragon is 
+wreaking more and more havoc by the minute."
+reveal_duration = 2.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[resource]
+script = ExtResource("2_sh56k")
+lines = Array[ExtResource("1_6nkp7")]([SubResource("Resource_6nkp7"), SubResource("Resource_sh56k")])
+metadata/_custom_type_script = "uid://bb1s133dlk22d"

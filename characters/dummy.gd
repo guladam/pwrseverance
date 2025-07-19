@@ -1,3 +1,4 @@
+class_name Dummy
 extends StaticBody2D
 
 @export var stats: CharacterStats
