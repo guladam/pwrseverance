@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://dvxdmhctj7h8e"]
+
+[ext_resource type="Script" uid="uid://c5umdp3sdbscn" path="res://characters/dummy_2.gd" id="1_su33a"]
+[ext_resource type="Resource" uid="uid://bjsbp76y1ld7h" path="res://characters/dummy_stats.tres" id="2_k8m1f"]
+[ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="3_elwlu"]
+[ext_resource type="Script" uid="uid://lu57o4wyoxw0" path="res://components/hurtbox_component.gd" id="4_2r55d"]
+[ext_resource type="Script" uid="uid://ml8ppjiwhayk" path="res://components/spawner_component.gd" id="5_5x2td"]
+[ext_resource type="PackedScene" uid="uid://cmaal1vnw3dbq" path="res://global/floating_combat_text.tscn" id="6_q1u18"]
+[ext_resource type="PackedScene" uid="uid://efjmaefoyavr" path="res://projectiles/dummy_bullet.tscn" id="7_k8m1f"]
+[ext_resource type="Script" uid="uid://dtft7np25t364" path="res://components/hurt_component.gd" id="7_ujemp"]
+[ext_resource type="Script" uid="uid://cjcdrcupe57ko" path="res://components/floating_text_manager_component.gd" id="8_x65aw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c747j"]
+size = Vector2(96, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsvvv"]
+size = Vector2(105, 105)
+
+[node name="Dummy2" type="StaticBody2D"]
+script = ExtResource("1_su33a")
+stats = ExtResource("2_k8m1f")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_elwlu")
+region_enabled = true
+region_rect = Rect2(1408, 384, 128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c747j")
+debug_color = Color(0, 0.6, 0.701961, 0.27451)
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_2r55d")
+metadata/_custom_type_script = "uid://lu57o4wyoxw0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_jsvvv")
+debug_color = Color(0.959492, 2.40654e-06, 0.521323, 0.42)
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+position = Vector2(0, -53)
+script = ExtResource("5_5x2td")
+scene = ExtResource("6_q1u18")
+metadata/_custom_type_script = "uid://ml8ppjiwhayk"
+
+[node name="BulletSpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("5_5x2td")
+scene = ExtResource("7_k8m1f")
+metadata/_custom_type_script = "uid://ml8ppjiwhayk"
+
+[node name="BulletSpawnTimer" type="Timer" parent="BulletSpawnerComponent"]
+wait_time = 2.5
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox_component")]
+script = ExtResource("7_ujemp")
+stats = ExtResource("2_k8m1f")
+hurtbox_component = NodePath("../HurtboxComponent")
+metadata/_custom_type_script = "uid://dtft7np25t364"
+
+[node name="FloatingTextManagerComponent" type="Node" parent="." node_paths=PackedStringArray("spawner_component")]
+script = ExtResource("8_x65aw")
+spawner_component = NodePath("../SpawnerComponent")
+travel = Vector2(0, -200)
+duration = 1.0
+spread = 1.7
+metadata/_custom_type_script = "uid://cjcdrcupe57ko"

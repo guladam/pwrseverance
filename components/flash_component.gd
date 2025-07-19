@@ -17,7 +17,7 @@ func _ready() -> void:
 		original_sprite_materials.append(sprite.material)
 
 
-func flash(color: Color = Color.WHITE):
+func flash(color: Color = Color.BLACK):
 	for sprite: CanvasItem in sprites:
 		sprite.material = flash_material
 		sprite.material.set("shader_parameter/color", Vector3(color.r, color.g, color.b))

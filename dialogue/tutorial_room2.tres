@@ -31,7 +31,7 @@ metadata/_custom_type_script = "uid://6w3dpa0bbfs"
 
 [sub_resource type="Resource" id="Resource_ql8k5"]
 script = ExtResource("1_pam8p")
-text = "Use your mouse to aim and perform attacks with LMB!"
+text = "Use your [color=lavender]mouse to aim[/color] and perform attacks with [color=lavender]LMB[/color]!"
 reveal_duration = 2.0
 metadata/_custom_type_script = "uid://6w3dpa0bbfs"
 

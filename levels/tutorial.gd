@@ -3,14 +3,16 @@ extends Node2D
 @export var room1_lines: DialogueLines
 @export var room2_lines: DialogueLines
 @export var room2_lines_2: DialogueLines
+@export var room3_lines: DialogueLines
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var walk_door_trigger: WalkTriggerComponent = $WalkDoor1Trigger
 @onready var second_room_enter_trigger: WalkTriggerComponent = $SecondRoomEnterTrigger
+@onready var third_room_enter_trigger: WalkTriggerComponent = $ThirdRoomEnterTrigger
 @onready var door_1: DoorComponent = %Door1
 @onready var door_2: DoorComponent = %Door2
+@onready var door_3: DoorComponent = %Door3
 @onready var dummy1: StaticBody2D = %Dummy1
-
 
 var dummy1_hit_counter := 0
 
@@ -32,6 +34,7 @@ func start_second_room() -> void:
 	Dialogue.line_finished.connect(func(_idx): $Player.show_weapons(), CONNECT_ONE_SHOT)
 	Dialogue.line_started.connect(_on_second_room_line_started)
 	Dialogue.dialogue_finished.connect(second_room_count_hits, CONNECT_ONE_SHOT)
+	third_room_enter_trigger.triggered.connect(start_third_room)
 
 
 func second_room_count_hits() -> void:
@@ -58,3 +61,13 @@ func _on_second_room_line_started(idx: int) -> void:
 	if idx == 2:
 		animation_player.play("show_barrel")
 		Dialogue.line_started.disconnect(_on_second_room_line_started)
+
+
+func start_third_room() -> void:
+	Dialogue.show_dialogue(room3_lines.lines)
+	Dialogue.dialogue_finished.connect(
+		func():
+			door_3.open()
+			$Dummy2.start_attacking()
+	, CONNECT_ONE_SHOT
+	)

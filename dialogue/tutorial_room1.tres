@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://6w3dpa0bbfs"
 
 [sub_resource type="Resource" id="Resource_11ncd"]
 script = ExtResource("1_w8tro")
-text = "Welcome to your training. I'm sorry that you had to come on such a short notice...
+text = "Welcome to your training. I'm sorry that you had to come in on such a short notice...
 But y'know, a dragon rampaging through the town 
 is a [shake rate=40.0 level=10 connected=1]pretty big deal[/shake]."
 reveal_duration = 3.0
@@ -33,7 +33,7 @@ metadata/_custom_type_script = "uid://6w3dpa0bbfs"
 [sub_resource type="Resource" id="Resource_tsadq"]
 script = ExtResource("1_w8tro")
 text = "No worries, I gotcha.
-Use the WASD keys to walk to the door."
+Use the [color=lavender]WASD[/color] keys to walk to the door."
 reveal_duration = 2.0
 metadata/_custom_type_script = "uid://6w3dpa0bbfs"
 

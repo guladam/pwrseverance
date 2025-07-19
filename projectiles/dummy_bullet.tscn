@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://efjmaefoyavr"]
+
+[ext_resource type="Script" uid="uid://b5f6ohi43ce7p" path="res://projectiles/dummy_bullet.gd" id="1_0uhkg"]
+[ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_eqpp3"]
+[ext_resource type="Script" uid="uid://n61vat51l6md" path="res://components/hitbox_component.gd" id="2_i7n4p"]
+[ext_resource type="Script" uid="uid://0l2cr8o74005" path="res://components/move_component.gd" id="4_s8h25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqpp3"]
+size = Vector2(80, 15)
+
+[node name="DummyBullet" type="Node2D" groups=["projectile"]]
+script = ExtResource("1_0uhkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.101961, 0.188235, 1)
+rotation = 1.5708
+texture = ExtResource("1_eqpp3")
+region_enabled = true
+region_rect = Rect2(896, 1152, 128, 128)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_i7n4p")
+damage = 7
+metadata/_custom_type_script = "uid://n61vat51l6md"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_eqpp3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.499998, 0)
+scale = Vector2(4.55, 1)
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("4_s8h25")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://0l2cr8o74005"

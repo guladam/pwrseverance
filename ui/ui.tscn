@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdmw42u4n0p7f"]
+
+[ext_resource type="FontFile" uid="uid://b6n3m45uvl0kl" path="res://assets/font/zerove.ttf" id="1_nb4k0"]
+[ext_resource type="Script" uid="uid://d1xnro7lixmaj" path="res://ui/health_display.gd" id="2_ks8t7"]
+[ext_resource type="Resource" uid="uid://c1wsfa8ynia3x" path="res://characters/player_stats.tres" id="3_wl5ax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ks8t7"]
+font = ExtResource("1_nb4k0")
+font_size = 64
+font_color = Color(1, 0.254902, 0.219608, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.662745)
+shadow_offset = Vector2(6, 6)
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="HealthDisplay" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -217.0
+offset_top = 18.0
+offset_right = 217.0
+offset_bottom = 92.0
+grow_horizontal = 2
+text = "Health: 100/100"
+label_settings = SubResource("LabelSettings_ks8t7")
+script = ExtResource("2_ks8t7")
+player_stats = ExtResource("3_wl5ax")

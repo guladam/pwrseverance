@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cwfqjs15xpcmx"]
+[gd_scene load_steps=35 format=3 uid="uid://cwfqjs15xpcmx"]
 
 [ext_resource type="Texture2D" uid="uid://di8whvxk6qkpp" path="res://assets/tilesheet.png" id="1_tory2"]
 [ext_resource type="Script" uid="uid://c1jib4fqcicgv" path="res://characters/player.gd" id="1_x0jl3"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cmaal1vnw3dbq" path="res://global/floating_combat_text.tscn" id="11_ke0a4"]
 [ext_resource type="Script" uid="uid://dks2uc4sybex6" path="res://components/flash_component.gd" id="14_41yun"]
 [ext_resource type="AudioStream" uid="uid://cybi2k16r0v8p" path="res://assets/sfx/dash.ogg" id="15_ke0a4"]
+[ext_resource type="Script" uid="uid://cuxauwh4105lc" path="res://components/movement_input_component.gd" id="16_4rspn"]
 [ext_resource type="AudioStream" uid="uid://crc1hkfrq4ihn" path="res://assets/sfx/sword_hit_small.wav" id="17_lcfw7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tory2"]
@@ -252,7 +253,7 @@ random_volume_offset_db = 0.2
 streams_count = 1
 stream_0/stream = ExtResource("17_lcfw7")
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 9
 script = ExtResource("1_x0jl3")
 character_stats = ExtResource("8_h076o")
@@ -260,6 +261,7 @@ move_stats = ExtResource("2_tory2")
 move_sound_threshold = 0.45
 
 [node name="BodySprite" type="Sprite2D" parent="."]
+z_index = 99
 texture = ExtResource("1_tory2")
 region_enabled = true
 region_rect = Rect2(256, 1024, 128, 128)
@@ -336,12 +338,23 @@ libraries = {
 
 [node name="Components" type="Node" parent="."]
 
-[node name="DashComponent" type="Node" parent="Components" node_paths=PackedStringArray("actor")]
+[node name="DashComponent" type="Node" parent="Components" node_paths=PackedStringArray("actor", "movement_dir_component", "cd_timer")]
 script = ExtResource("9_svrv0")
 actor = NodePath("../..")
+movement_dir_component = NodePath("../MovementInputComponent")
 dash_distance = 320
 dash_duration = 0.2
+cd_timer = NodePath("CooldownTimer")
 metadata/_custom_type_script = "uid://bt5tcff8fug34"
+
+[node name="CooldownTimer" type="Timer" parent="Components/DashComponent"]
+wait_time = 0.3
+one_shot = true
+
+[node name="FlashComponent" type="Node" parent="Components" node_paths=PackedStringArray("sprites")]
+script = ExtResource("14_41yun")
+sprites = [NodePath("../../BodySprite"), NodePath("../../LeftHandAnchor/HandSprite"), NodePath("../../RightHandAnchor/HandSprite")]
+metadata/_custom_type_script = "uid://dks2uc4sybex6"
 
 [node name="JumpComponent" type="Node" parent="Components" node_paths=PackedStringArray("anim_player", "sfx")]
 unique_name_in_owner = true
@@ -369,10 +382,9 @@ script = ExtResource("9_lcfw7")
 spawner_component = NodePath("../../FloatingTextSpawner")
 metadata/_custom_type_script = "uid://cjcdrcupe57ko"
 
-[node name="FlashComponent" type="Node" parent="Components" node_paths=PackedStringArray("sprites")]
-script = ExtResource("14_41yun")
-sprites = [NodePath("../../BodySprite"), NodePath("../../LeftHandAnchor/HandSprite"), NodePath("../../RightHandAnchor/HandSprite")]
-metadata/_custom_type_script = "uid://dks2uc4sybex6"
+[node name="MovementInputComponent" type="Node" parent="Components"]
+script = ExtResource("16_4rspn")
+metadata/_custom_type_script = "uid://cuxauwh4105lc"
 
 [node name="SFX" type="Node" parent="."]
 

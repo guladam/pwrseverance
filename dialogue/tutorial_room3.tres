@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="DialogueLines" load_steps=8 format=3 uid="uid://bscn1un8xsqvw"]
+
+[ext_resource type="Script" uid="uid://6w3dpa0bbfs" path="res://resources/dialogue_line.gd" id="1_7kiho"]
+[ext_resource type="Script" uid="uid://bb1s133dlk22d" path="res://resources/dialogue_lines.gd" id="2_bn6u2"]
+
+[sub_resource type="Resource" id="Resource_7kiho"]
+script = ExtResource("1_7kiho")
+text = "Now, finally try dodging some bullets!"
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_bn6u2"]
+script = ExtResource("1_7kiho")
+text = "You have 2 moves:
+Your [color=red]dash[/color] and your [color=pale_turquoise]jump[/color]."
+reveal_duration = 1.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_3gt14"]
+script = ExtResource("1_7kiho")
+text = "Dash goes in the direction you are currently moving in,
+While jumping happens in place."
+reveal_duration = 1.5
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_otem7"]
+script = ExtResource("1_7kiho")
+text = "If you feel ready, visit the campfire outside
+before facing the dragon!
+XOXO"
+reveal_duration = 2.0
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[sub_resource type="Resource" id="Resource_txc88"]
+script = ExtResource("1_7kiho")
+text = "Oh, almost forgot:
+Dash with [color=lavender]Space[/color], jump with [color=lavender]LCTRL[/color] or [color=lavender]LSHIFT[/color]!"
+reveal_duration = 1.6
+metadata/_custom_type_script = "uid://6w3dpa0bbfs"
+
+[resource]
+script = ExtResource("2_bn6u2")
+lines = Array[ExtResource("1_7kiho")]([SubResource("Resource_7kiho"), SubResource("Resource_bn6u2"), SubResource("Resource_3gt14"), SubResource("Resource_otem7"), SubResource("Resource_txc88")])
+metadata/_custom_type_script = "uid://bb1s133dlk22d"

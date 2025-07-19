@@ -17,8 +17,8 @@ extends CharacterBody2D
 @onready var dash_component: DashComponent = $Components/DashComponent
 @onready var flash_component: FlashComponent = $Components/FlashComponent
 @onready var hurtbox: HurtboxComponent = $Hurtbox
+@onready var movement_input_component: MovementInputComponent = $Components/MovementInputComponent
 
-var direction: Vector2
 var can_move := true
 
 func _ready() -> void:
@@ -29,12 +29,12 @@ func _ready() -> void:
 	move_sound_timer.timeout.connect(_on_move_sound_timer_timeout)
 	dash_component.dash_started.connect(_on_dash_started)
 	dash_component.dash_ended.connect(_on_dash_ended)
+	hurtbox.hurt.connect(flash_component.flash.bind(Color.RED).unbind(1))
 
 
 func _physics_process(_delta: float) -> void:
 	if can_move:
-		direction = Input.get_vector("left", "right", "up", "down")
-		velocity = direction * move_stats.speed
+		velocity = movement_input_component.direction * move_stats.speed
 	
 	move_and_slide()
 
@@ -59,7 +59,9 @@ func _on_jumped() -> void:
 
 
 func _on_move_sound_timer_timeout() -> void:
-	if abs(direction.x) > move_sound_threshold or abs(direction.y) > move_sound_threshold:
+	var x_dir_moving: bool = abs(movement_input_component.direction.x) > move_sound_threshold
+	var y_dir_moving: bool = abs(movement_input_component.direction.y) > move_sound_threshold
+	if x_dir_moving or y_dir_moving:
 		move_sound.play()
 
 
